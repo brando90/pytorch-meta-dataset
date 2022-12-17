@@ -1,6 +1,6 @@
-# based on
-#   https://github.com/google-research/meta-dataset/blob/main/doc/dataset_conversion.md
-# and https://github.com/brando90/pytorch-meta-dataset#12-data
+# based on: https://github.com/google-research/meta-dataset/blob/main/doc/dataset_conversion.md
+
+# make index not needed  # put where
 
 mdkdir -p $HOME/mds
 export MDS_DATA_PATH=$HOME/data/mds
