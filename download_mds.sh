@@ -1,13 +1,29 @@
 # based on: https://github.com/google-research/meta-dataset/blob/main/doc/dataset_conversion.md
 
-# make index not needed  # put where
+# make index needed, it's at the last step at the end of this doc
+
+#prereqs: install gsutil
+pip install gsutil
+
+#prereqs: download pytorch-mds to $HOME
+cd $HOME
+git clone https://github.com/brando90/pytorch-meta-dataset # done already?
+
+#prereqs: download original mds
+git clone https://github.com/google-research/meta-dataset 
+
+#prereqs: install original mds python requirements
+pip install -r meta-dataset/requirements.txt
+
+#prereqs: install pytorch mds python requirements
+pip install -r pytorch-meta-dataset/requirements.txt
 
 #create records and splits folders for mds
-mkdir -p $HOME/mds #did you mean $HOME/data/mds?
+mkdir -p $HOME/data/mds #changed from $HOME/mds to $HOME/data/mds?
 export MDS_DATA_PATH=$HOME/data/mds
 
-# mkdir $MDS_DATA_PATH/records # If you haven't already?
-# mkdir $MDS_DATA_PATH/splits # If you haven't already?
+mkdir $MDS_DATA_PATH/records # If you haven't already?
+mkdir $MDS_DATA_PATH/splits # If you haven't already?
 export RECORDS=$MDS_DATA_PATH/records
 export SPLITS=$MDS_DATA_PATH/splits
 
@@ -138,8 +154,6 @@ ls $RECORDS/dtd/
 
 
 # -- quickdraw
-# --0. install gsutil if you havent already
-# pip install gsutil
 
 # --1. run gsutil to get the files
 gsutil -m cp gs://quickdraw_dataset/full/numpy_bitmap/*.npy $MDS_DATA_PATH/quickdraw
@@ -237,3 +251,7 @@ python -m meta_dataset.dataset_conversion.convert_datasets_to_records \
 #80 tfrecords files named [0-79].tfrecords
 #dataset_spec.json (see note 1)
 ls $RECORDS/mscoco/
+
+# final step - run make_index_files.sh
+chmod +x make_index_files.sh
+./make_index_files.sh
