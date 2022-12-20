@@ -1,21 +1,25 @@
 # based on: https://github.com/google-research/meta-dataset/blob/main/doc/dataset_conversion.md
+# make index is needed, it's at the last step at the end of this doc (after installing all the tfrecords from MDS)
 
-# make index needed, it's at the last step at the end of this doc
-
-#prereqs: install gsutil
+# -- prereqs: install gsutil
+# if that doesnt work here's googles OS-specific instructions to install gsutil: https://download.huihoo.com/google/gdgdevkit/DVD1/developers.google.com/storage/docs/gsutil_install.html
 pip install gsutil
 
-#prereqs: download pytorch-mds to $HOME
+# -- prereqs: download pytorch-mds to $HOME
 cd $HOME
 git clone https://github.com/brando90/pytorch-meta-dataset # done already?
+#check that the pytorch-mds directory is there
+ls pytorch-meta-dataset/
 
-#prereqs: download original mds
+# -- prereqs: download original mds to $HOME
 git clone https://github.com/google-research/meta-dataset 
+#check that the original mds directory is there
+ls meta-dataset/
 
-#prereqs: install original mds python requirements
+# -- prereqs: install original mds python requirements
 pip install -r meta-dataset/requirements.txt
 
-#prereqs: install pytorch mds python requirements
+# -- prereqs: install pytorch mds python requirements
 pip install -r pytorch-meta-dataset/requirements.txt
 
 #create records and splits folders for mds
@@ -37,6 +41,7 @@ wget https://image-net.org/data/winter21_whole.tar.gz -O ~/data/winter21_whole.t
 
 # - 2. Extract it into ILSVRC2012_img_train/, which should contain 1000 files, named n????????.tar (expected time: ~30 minutes)
 # tar https://superuser.com/questions/348205/how-do-i-unzip-a-tar-gz-archive-to-a-specific-destination
+mkdir -p ~/data/winter21_whole
 tar xf ~/data/winter21_whole.tar.gz -C ~/data/winter21_whole
 # move the train part: mv src dest
 mv ~/data/winter21_whole/ILSVRC2012_img_train $MDS_DATA_PATH/ILSVRC2012_img_train
@@ -84,7 +89,9 @@ unzip $MDS_DATA_PATH/omniglot/images_background.zip -d $MDS_DATA_PATH/omniglot
 unzip $MDS_DATA_PATH/omniglot/images_evaluation.zip -d $MDS_DATA_PATH/omniglot
 # what is
 #   --splits_root=$SPLITS \
-#   --records_root=$RECORD
+#   --records_root=$RECORD 
+# SPLITS is what does the hierarchical splitting of classes when sampling tasks (you should have a few json files),
+# RECORDS is where the tfrecords are recorded. plus a json file dataspec to map classes to json files.
 
 python -m meta_dataset.dataset_conversion.convert_datasets_to_records \
   --dataset=omniglot \
@@ -253,5 +260,6 @@ python -m meta_dataset.dataset_conversion.convert_datasets_to_records \
 ls $RECORDS/mscoco/
 
 # final step - run make_index_files.sh
+cd $HOME/pytorch-meta-dataset/
 chmod +x make_index_files.sh
 ./make_index_files.sh
