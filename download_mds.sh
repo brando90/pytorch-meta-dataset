@@ -3,6 +3,7 @@
 
 # -- prereqs: install gsutil
 # if that doesnt work here's googles OS-specific instructions to install gsutil: https://download.huihoo.com/google/gdgdevkit/DVD1/developers.google.com/storage/docs/gsutil_install.html
+# see "Installing from the Python package index (PyPi)"
 pip install gsutil
 
 # -- prereqs: download pytorch-mds to $HOME
@@ -30,6 +31,9 @@ mkdir $MDS_DATA_PATH/records # If you haven't already?
 mkdir $MDS_DATA_PATH/splits # If you haven't already?
 export RECORDS=$MDS_DATA_PATH/records
 export SPLITS=$MDS_DATA_PATH/splits
+
+# in order to run python scripts we need to cd into the original mds dir
+cd $HOME/meta-dataset/
 
 # -- ilsvrc_2012: https://github.com/google-research/meta-dataset/blob/main/doc/dataset_conversion.md#ilsvrc_2012
 # - 1. Download ilsvrc2012_img_train.tar, from the ILSVRC2012 website
