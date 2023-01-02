@@ -1,21 +1,28 @@
 # based on: https://github.com/google-research/meta-dataset/blob/main/doc/dataset_conversion.md
 # make index is needed, it's at the last step at the end of this doc (after installing all the tfrecords from MDS)
 
+# - make sure your in proj folder
+cd ~/diversity-for-predictive-success-of-meta-learning/
+
 # -- prereqs: install gsutil
 # if that doesnt work here's googles OS-specific instructions to install gsutil: https://download.huihoo.com/google/gdgdevkit/DVD1/developers.google.com/storage/docs/gsutil_install.html
 # see "Installing from the Python package index (PyPi)"
 pip install gsutil
 
-# -- prereqs: download pytorch-mds to $HOME
-cd $HOME
-git clone https://github.com/brando90/pytorch-meta-dataset # done already?
+# -- prereq: download the repos we need via git's submodules. In particular, for pytorch-meta-dataset & the original meta-dataset
+# git knows what to do due to the .gitmodules that has the path, url to our fork, branch
+git submodule update && git submodule init
+
+# prereqs: download pytorch-mds to $HOME
+#cd $HOME
+#git clone https://github.com/brando90/pytorch-meta-dataset # done already?
 #check that the pytorch-mds directory is there
-ls pytorch-meta-dataset/
+#ls pytorch-meta-dataset/
 
 # -- prereqs: download original mds to $HOME
-git clone https://github.com/google-research/meta-dataset 
+#git clone https://github.com/google-research/meta-dataset
 #check that the original mds directory is there
-ls meta-dataset/
+#ls meta-dataset/
 
 # -- prereqs: install original mds python requirements
 pip install -r meta-dataset/requirements.txt
@@ -23,8 +30,8 @@ pip install -r meta-dataset/requirements.txt
 # -- prereqs: install pytorch mds python requirements
 pip install -r pytorch-meta-dataset/requirements.txt
 
-#create records and splits folders for mds
-mkdir -p $HOME/data/mds #changed from $HOME/mds to $HOME/data/mds?
+#create records and splits folders that mds needs
+mkdir -p $HOME/data/mds
 export MDS_DATA_PATH=$HOME/data/mds
 
 mkdir $MDS_DATA_PATH/records # If you haven't already?
@@ -33,7 +40,11 @@ export RECORDS=$MDS_DATA_PATH/records
 export SPLITS=$MDS_DATA_PATH/splits
 
 # in order to run python scripts we need to cd into the original mds dir
-cd $HOME/meta-dataset/
+#cd $HOME/meta-dataset/
+
+
+
+
 
 # -- ilsvrc_2012: https://github.com/google-research/meta-dataset/blob/main/doc/dataset_conversion.md#ilsvrc_2012
 # - 1. Download ilsvrc2012_img_train.tar, from the ILSVRC2012 website
