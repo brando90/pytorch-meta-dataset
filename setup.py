@@ -37,7 +37,8 @@ setup(
         # 'torchvision==0.8.2+cu110',  # original pytorch-meta-dataset
         # 'torchvision',
         'torchvision==0.10.1+cu111',
-        'tqdm==4.54.1'
+        'tqdm==4.54.1',
+        'gsutil',
     ]
 )
 
