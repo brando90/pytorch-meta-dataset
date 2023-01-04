@@ -31,7 +31,8 @@ setup(
 
     # for pytorch see doc string at the top of file
     install_requires=[
-        'absl-py==0.11.0',
+        # 'absl-py==0.11.0',
+        'absl-py',
         'tfrecord==1.11',
         # 'torchvision==0.8.2+cu110',  # original pytorch-meta-dataset
         # 'torchvision',
