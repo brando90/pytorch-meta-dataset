@@ -31,23 +31,17 @@ setup(
 
     # for pytorch see doc string at the top of file
     install_requires=[
-        # 'absl-py==0.11.0',
-        'absl-py',
+        'absl-py==0.11.0',
         'tfrecord==1.11',
+
         # 'torchvision==0.8.2+cu110',  # original pytorch-meta-dataset
-        # 'torchvision',
+        # - what div proj uses
+        'torch==1.9.1+cu111',
         'torchvision==0.10.1+cu111',
+        'torchaudio>=0.9.1',
+
         'tqdm==4.54.1',
         'gsutil',
-
-    #     'absl-py==1.0.0',
-    #     'tfrecord==1.14.1',
-    #     # note: torchvision might need ur specific cuda version,
-    #     # I recommned to use the 0.10.1 ver with whatever ver of cuda works for you
-    #     'torchvision==0.10.1+cu111',
-    #     # 'torchvision',
-    #     'tqdm==4.62.3',
-    #     'gsutil==5.9',
     ]
 )
 
