@@ -40,7 +40,8 @@ setup(
         'torchvision==0.10.1+cu111',
         'torchaudio>=0.9.1',
 
-        'tqdm==4.54.1',
+        # 'tqdm==4.54.1',
+        'tqdm==4.62.1',
         'gsutil',
     ]
 )
